@@ -1,0 +1,74 @@
+extends wrapper
+
+block BODY
+	+fieldset("ContactInformation")
+		.fieldset
+			+inputText("name",f.name,f.name_help,f.name_icon,true)
+			+inputText("company",f.company,f.company_help,f.company_icon,true)
+		.fieldset
+			+inputText("email",f.email,f.email_help,f.email_icon,true)
+
+	+fieldset("SocialMedia")
+		.fieldset
+			.icons
+				.inputField.inputFieldCheckBoxes.revealers
+					for p in f.providers
+						+socialMediaCheckBox(p)
+
+	+fieldset("Logo")
+		.fieldset
+			+inputUpload("logo",f.logo,f.logo_help,f.logo_icon)
+
+	+fieldset("Branding")
+		+radioGroupRevealer("colorChoice",f.choice,f.choices.handpicked,f.choices.api,f.choices.none,true)
+		+revealOnHandPicked("colorChoice")
+			+inputColor("color0",f.handpicked.color1,f.handpicked.color1_help,f.handpicked.icon,false)
+			+inputColor("color1",f.handpicked.color2,f.handpicked.color2_help,f.handpicked.icon,false)
+			+inputColor("color2",f.handpicked.color3,f.handpicked.color3_help,f.handpicked.icon,false)
+			+inputColorHidden("color3")
+			+inputColorHidden("color4")
+			+inputColorHidden("color5")
+		+revealOnAPI("colorChoice")
+			+inputDynamic("colorSearch",f.api.label,f.api.help,f.api.icon,false,f.api.default,f.api.loadingText).inputFieldColorScheme
+		+revealOnNone("colorChoice",f.none)
+
+	+fieldset("DomainName")
+		+radioGroupRevealer("domainChoice",f.choice,f.choices.handpicked,f.choices.api,f.choices.none,true)
+		+revealOnHandPicked("domainChoice")
+			+inputText("domain",f.handpicked.label,f.handpicked.help,f.handpicked.icon)
+		+revealOnAPI("domainChoice")
+			+inputDynamic("domainSearch",f.api.label,f.api.help,f.api.icon,false,f.api.default,f.api.loadingText).inputFieldText
+		+revealOnNone("domainChoice",f.none)
+
+	+fieldset("Notes")
+		.fieldset
+			+inputTextArea("notes",f.notes,f.notes_help)
+
+	+fieldset("Recap")
+		.fieldset
+			.help=f.text
+			+recapSet("ContactInformation")
+				+recap("name",f.name,"text")
+				+recap("company",f.company,"text")
+				+recap("email",f.email,"text")
+			+recapSet("SocialMedia")
+				for p in f.providers
+					+recap("socialMedia"+p,p,"text")
+			+recapSet("Logo")
+				+recap("logo",f.logo,"text")
+			+recapSet("Branding")
+				+recap("color0",f.handpicked.color1,"color")
+				+recap("color1",f.handpicked.color2,"color")
+				+recap("color2",f.handpicked.color3,"color")
+			+recapSet("DomainName")
+				+recap("domain",f.handpicked.label,"text")
+			+recapSet("Notes")
+				+recap("notes",f.notes,"textArea")
+
+
+
+block MODALS
+	#omelet-colors.colors
+		for color,i in colors
+			.colorPick(style="background-color:#"+color+";",data-value='#'+color)
+				span.title='#'+color

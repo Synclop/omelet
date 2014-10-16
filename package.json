@@ -1,0 +1,32 @@
+{
+  "name": "omelet",
+  "version": "0.0.1",
+  "description": "an omelet",
+  "main": "index.js",
+  "dependencies": {
+    "browserify": "^6.0.3",
+    "harp": "^0.14.0",
+    "watchify": "^2.0.0"
+  },
+  "devDependencies": {
+    "browserify-shim": "^3.8.0",
+    "deamdify": "^0.1.1"
+  },
+  "browser": {
+    "jquery": "./node_modules/jquery/dist/jquery.js"
+  },
+  "browserify": {
+    "transform": ["browserify-shim"]
+  },
+  "browserify-shim": {
+    "jquery": "jQuery"
+  },
+  "scripts": {
+    "postinstall": "mkdir -p public/build",
+    "test": "harp server public & watchify js/index.js -o public/main.js -dv",
+    "start": "browserify js/index.js -o public/main.js && harp compile public -o public/build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "xananax@synclop.com",
+  "license": "MIT"
+}

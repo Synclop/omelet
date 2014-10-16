@@ -1,0 +1,111 @@
+{
+	"colors" : [
+		"588c75"
+	,	"b0c47f"
+	,	"f3e395"
+	,	"f3ae73"
+	,	"da645a"
+	,	"79a38f"
+	,	"c1d099"
+	,	"f5eaaa"
+	,	"f5be8f"
+	,	"e1837b"
+	,	"9bbaab"
+	,	"d1dcb2"
+	,	"f9eec0"
+	,	"f7cda9"
+	,	"e8a19b"
+	,	"bdd1c8"
+	,	"e1e7cd"
+	,	"faf4d4"
+	,	"fbdfc9"
+	,	"f1c1bd"
+	]
+,	"texts_order":["ContactInformation","SocialMedia","Logo","Branding","DomainName","Notes","Recap"]
+,	"texts":{
+		"en":{
+			"ContactInformation":{
+				"header":"Contact Information"
+			,	"name":"Name"
+			,	"name_help":"Your own name"
+			,	"name_icon":"user"
+			,	"company":"Company Name"
+			,	"company_help":"Your Company Name"
+			,	"company_icon":"users"
+			,	"email":"Email"
+			,	"email_help":"We will not spam you; we need a valid email to contact you back"
+			,	"email_icon":"mail"
+			}
+		,	"SocialMedia":{
+				"header":"Social Media Links"
+			,	"providers":[
+					"facebook"
+				,	"twitter"
+				]
+			}
+		,	"Logo":{
+				"header":"Logo"
+			,	"logo":"Logo"
+			,	"logo_help":"Do you have a logo? Please Upload it here. If you have a vectorial version (.ai/.eps/.svg), it's better, but if you don't, please make sure you're sending us the largest image you have. You can select multiple files"
+			,	"logo_icon":"upload"
+			}
+		,	"Branding":{
+				"header":"Branding"
+			,	"choice":"How would you like to choose your colors?"
+			,	"choices":{
+					"handpicked":"I want to hand pick my colors"
+				,	"api":"I want to choose a color scheme"
+				,	"none":"I want synclop to choose colors for me"
+				}
+			,	"handpicked":{
+					"color1":"Main Color"
+				,	"color1_help":"Please select your main color"
+				,	"color2":"Secondary Color"
+				,	"color2_help":"Please select your secondary color (optional)"
+				,	"color3":"Third Color"
+				,	"color3_help":"Please select your third color (optional)"
+				,	"icon":"brush"
+				}
+			,	"api":{
+					"label":"Color Scheme"
+				,	"help":"search for a color scheme here, enter any word you like"
+				,	"default":"flowers"
+				,	"loadingText":"loading colors..."
+				,	"icon":"search"
+				}
+			,	"none":"ok, synclop will take care of your colors for you"
+			}
+		,	"DomainName":{
+				"header":"Domain Name"
+			,	"choice":"How do you want to pick your domain name?"
+			,	"choices":{
+					"handpicked":"I already have a domain name"
+				,	"api":"I do not have domain name, show me suggestions"
+				,	"none":"I want synclop to choose a domain name for me"
+				}
+			,	"handpicked":{
+					"label":"Domain"
+				,	"help":"Your current domain name"
+				,	"icon":"home"
+				}
+			,	"api":{
+					"label":"Domain"
+				,	"help":"Enter your desired domain name here. You will be presented with available suggestions. You can buy the domain directly, or just pick it and let Synclop take care of formalities"
+				,	"default":""
+				,	"loadingText":"loading domains..."
+				,	"icon":"search"
+				}
+			,	"none":"ok, synclop will take care of your domain name for you"
+			}
+		,	"Notes":{
+				"header":"Notes"
+			,	"notes":"Notes"
+			,	"notes_help":"If you want to leave us a note or ask a question, write it here"
+			}
+		,	"Recap":{
+				"header":"Recap"
+			,	"text":"Please make sure everything is correct"
+			}
+		}
+	}
+}

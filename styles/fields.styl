@@ -1,0 +1,208 @@
+label
+	display inline-block
+legend
+	@extends $inlineMiddleHack
+	padding 0
+	margin 0
+	width 100%
+	top 0
+	left 0
+	position absolute
+	height omeletLegendHeight
+	display inline-block
+	vertical-align middle
+	span
+		display inline-block
+		vertical-align middle
+		font-size 2em
+fieldset
+	@extends $inlineMiddleHack
+	display block
+	box-sizing border-box
+	padding-top omeletLegendHeight
+	position absolute
+	top -100%
+	left 0
+	overflow hidden
+	//transition all 1s
+	transition-delay 1s
+	.fieldset
+		top 8000px
+		transition all 1s
+		top 1000px
+	.formNav
+		bottom -1000px
+	&.active
+		top 0
+		transition-delay 0
+		.fieldset
+			top 0
+			transition-delay 0
+		.formNav
+			bottom 2em
+.fieldset
+	width 80%
+	margin 0 auto
+	min-height 3em
+	transition all 1s
+	position relative
+	&:last-child
+		min-height 0
+.fieldset-inner
+	display inline-block
+	vertical-align middle
+	width 100%
+.inputField,.fieldset
+	padding-bottom 3em
+	&:last-child
+		padding-bottom 0
+.input-icon
+	position absolute
+	top 0
+	left 0
+	.icon
+		font-size 1.5em
+.subInputField
+	margin-top 1em
+	position relative
+.inputField
+	text-align left
+	position relative
+	>.input-icon
+		top 1.5em
+		.color-box
+			box-sizing border-box
+			border 1px solid #ccc
+			background white
+			left 2em
+			width 2em
+			height 2em
+			position absolute
+			top 0
+	.help
+		display block
+		opacity 0
+		margin-top 1.2em
+		background helpTextBackgroundColor
+		color helpTextForegroundColor
+		box-sizing border-box
+		padding .5em
+		transition opacity .2s ease-in
+		position relative
+		box-shadow helpTextBoxShadow
+		&:before
+			content ''
+			triangle(helpTextArrowWidth,helpTextArrowHeight,'top',@background)
+			position absolute
+			top -(helpTextArrowHeight*0.9)
+			left (helpTextArrowWidth/2)
+	.help-inside
+		font-size helpTextFontSize
+	>label:first-child
+		display: block;
+		height 1.5em
+		>span
+			padding 0 5px 1em 0
+			font-weight fieldLabelFontWeight
+			font-size fieldLabelFontWeight
+	.radio,.checkbox
+		>label
+			>span
+				font-weight fieldLabelFontWeight
+				font-size fieldLabelFontWeight
+	input[type="text"],input[type="search"],textarea
+		display: block;
+		margin: 0;
+		padding: 0 0 0.15em;
+		width: 100%;
+		border: none;
+		border-bottom: 2px solid rgba(0,0,0,0.2);
+		background-color: transparent;
+		//color: #fffed8;
+		text-overflow: ellipsis;
+		font-weight: bold;
+		font-size: fielLabelInputTextSize
+		border-radius: 0;
+		box-sizing border-box
+		padding-left 1.5em
+		&.color
+			padding-left 3em
+		&:invalid
+			box-shadow: none;
+		&:focus
+			border-color #bbb
+			outline: none
+			+.help
+				opacity 1
+				transition opacity 1s ease-out
+	textarea
+		border 1px solid rgba(0,0,0,0.2)
+		height 9em
+	input[type="file"],input[type="radio"], input[type="checkbox"]
+		display none
+	.uploadButton
+		@extend $button
+		margin 1em
+	.uploadDropZone
+		display inline-block
+		margin .5em
+		width 50%
+		min-height 8em
+		max-height 16em
+		overflow auto
+		background white
+		border-radius .5em
+		box-shadow inset 1px 1px 5px rgba(0,0,0,.5)
+		position relative
+		&:before
+			content 'drop files here'
+			text-align center
+			display block
+			position absolute
+			line-height 5
+			color #ccc
+			top .5em
+			left @top
+			right @top
+			bottom @top
+			border @top dashed @color
+		.uploadDropZoneInside
+			position absolute
+			top 0
+			left 0
+			right 0
+			bottom 0
+		&.draggedOver
+			&:before
+				color red
+				border-color red
+	.thumb
+		width 10em
+		height 10em
+		background-color #ddd
+		display block
+		float left
+		margin .5em
+		position relative
+		background-size cover
+	.radioButton, .radioButtonInside, .checkboxButton, .checkboxButtonInside
+		display inline-block
+	.radioButton, .radioButtonInside
+		@extend $circle
+	.radioButton, .checkboxButton
+		background #fdfdfd
+		width 1em
+		height 1em
+		border 1px solid #eee
+		box-shadow inset 1px 1px 3px rgba(0,0,0,.5)
+		margin-right .5em
+	.radioButtonInside, .checkboxButtonInside
+		width 50%
+		height 50%
+		margin 25%
+		transition all 1s
+	input:checked + .inputButton
+		.inputButtonInside
+			background black
+			transition all .5s
+	

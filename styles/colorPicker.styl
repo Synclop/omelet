@@ -1,0 +1,72 @@
+.colorPick,.colorPattern,.domain
+	opacity 0
+	box-shadow inset 0 -6em 0 -2em #fff, outset .4em .4em 1.5em rgba(0,0,0,.1)
+	background-clip padding-box
+	transform scale3d(0.8,0.8,1)
+	transition transform 0.3s, opacity 0.3s;
+
+.colorPick, .colorPattern
+	display block
+	width 20%
+	height 25%
+	float left
+	cursor pointer
+	border-radius .2em .2em 1em 1em
+	position relative
+	box-sizing border-box
+	border 1em solid transparent
+	.title
+		display block
+		position absolute
+		margin 0
+		height 2em
+		box-sizing border-box
+		padding .5em
+		bottom 0
+		left 0
+		right 0
+		background white
+		border-radius 0 0 .2em .2em
+	&.selected
+		border-color #fdfdfd
+		border-color rgba(#fdfdfd,.5)
+
+.colorPattern
+	height 7em
+	input
+		display none
+	.patternColors
+		display block
+		width 100%
+		height 100%
+		position absolute
+		top 0
+		left 0
+		.patternColor
+			width 20%
+			height 100%
+			display block
+			float left
+		for i in 1..20
+			&[data-has="{i}"]
+				.patternColor
+					width unit(100/i,'%')
+			
+	
+.colors,.resultFieldResults
+	visibility hidden
+	top 0
+	left 0
+	bottom 0
+	right 0
+	position absolute
+	&.toggled
+		visibility visible
+
+.toggled
+	.colorPick,.colorPattern
+		opacity 1
+		transform scale3d(1,1,1)
+		for n in 1..30
+			&:nth-child({n})
+				transition-delay(unit((n - 1)/100,'s'))

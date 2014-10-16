@@ -1,0 +1,108 @@
+global-reset()
+
+$inlineMiddleHack
+	&:before
+		content ''
+		display inline-block
+		vertical-align middle
+		height 100%
+		width 0
+
+$inlineMiddleHackAlternate
+	&:after
+		content ''
+		display inline-block
+		vertical-align middle
+		height 100%
+		width 0
+
+$circle
+	border-radius 50%
+
+.clear
+	clear both
+	*zoom: 1
+
+.button-icon
+	@extend $inlineMiddleHackAlternate
+	display block
+	float left
+	width (buttonPaddingX+2em)
+	height 100%
+	position absolute
+	top 0
+	bottom 0
+	text-align center
+	border-right 1px solid rgba(255,255,255,.3)
+	box-shadow 1px 0px 2px rgba(0,0,0,.2)
+.button-text
+	@extend $inlineMiddleHack
+	float left
+	text-align center
+
+.button-text-inside
+	display inline-block
+	font-size buttonTextFontSize
+	margin-top buttonTextFontYAdjustment
+
+$button
+	display inline-block
+	padding buttonPaddingX buttonPaddingY
+	text-decoration none
+	cursor pointer
+	position relative
+	overflow hidden
+	border-top: 1px solid #fff;
+	background: linear-gradient(to bottom, rgba(114,184,255,1) 0%,rgba(64,150,238,1) 100%);
+	box-shadow: 0 5px 8px #002851, 0 8px 0 #002851, -2px 1px 0 #003872, 2px 1px 0 #003872, 0px 8px 10px #000, 0 10px 30px #1b1b1b;
+	font-weight: bold
+	letter-spacing: buttonLetterSpacing
+	text-shadow: -1px -1px 1px #00172e,1px 1px 1px #a1cfff;
+	color: #14467a;
+	transition: all 0.3s ease-in-out;
+	text-transform buttonTextTransform
+	.button-icon:first-child
+		left 0
+		+ .button-text
+			margin-left (buttonPaddingX+buttonTextMarginFromIcon)
+	.button-icon:last-child
+		right 0
+	&:focus, &:hover
+		box-shadow: 0 6px 6px #002851, 0 6px 0 #002851, -1px 0px 0 #003872, 0px 0px 0 #003872, 0px 7px 8px #000, 0 7px 20px #1b1b1b;
+		color #fdfdfd
+	&:active
+		border-top: 1px solid #cde4fc;
+		box-shadow: 0 0px 0px #002851, 0 3px 0 #002851, 0px 0px 0 #003872, 0px 0px 0 #003872, 0px 2px 4px #000, 0 2px 10px #1b1b1b;
+		color #fdfdfd
+
+triangle(width = 10px, height = 10px, direction = 'bottom', color = #000)
+	// Base triangle styles
+	width 0
+	height 0
+	background 0
+	border-style solid
+	// Styles for each direction
+	if direction == 'top'
+		border-width: 0 (width * .5) height (width * .5)
+		border-color: transparent transparent color transparent
+	if direction == 'topRight'
+		border-width: 0 width height 0
+		border-color: transparent color transparent transparent
+	if direction == 'right'
+		border-width: (height * .5) 0 (height *.5) width
+		border-color: transparent transparent transparent color
+	if direction == 'bottomRight'
+		border-width: 0 0 height width
+		border-color: transparent transparent color transparent
+	if direction == 'bottom'
+		border-width: height (width * .5) 0 (width * .5)
+		border-color: color transparent transparent transparent
+	if direction == 'bottomLeft'
+		border-width: width 0 0 height
+		border-color: transparent transparent transparent color
+	if direction == 'left'
+		border-width: (height * .5) width (height * .5) 0
+		border-color: transparent color transparent transparent
+	if direction == 'topLeft'
+		border-width: height width 0 0
+		border-color: color transparent transparent transparent

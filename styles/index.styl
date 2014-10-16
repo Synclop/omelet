@@ -1,0 +1,21 @@
+omeletLegendHeight = 5em
+
+@import "variables"
+@import "nib"
+@import "utils"
+@import "animations"
+@import "global"
+
+
+.omelet
+	position relative
+	overflow hidden
+	@import "fields"
+	@import "buttons"
+	@import "dynamicFields"
+	@import "colorPicker"
+	@import "domainPicker"
+	.fieldset
+		for n in 1..30
+			&:nth-child({n})
+				transition-delay(unit((n - 1)/100,'s'))

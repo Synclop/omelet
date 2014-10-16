@@ -1,0 +1,41 @@
+.domain
+	@extend $inlineMiddleHack
+	float left
+	padding domainBoxPadding
+	border-width domainBoxSelectedBorderWidth
+	border-style none
+	border-color transparent
+	height domainBoxHeight
+	width domainBoxWidth
+	margin (domainBoxMargin+domainBoxSelectedBorderWidth)
+	cursor pointer
+	background domainBoxBackgroundColor
+	position relative
+	text-align left
+	.domain-name
+		display inline-block
+		vertical-align middle
+		font-size domainBoxFontSize
+	.domain-buy
+		float right
+		display none
+		text-align center
+		a
+			@extend $button
+			font-size domainBoxBuyButtonFontSize
+	&:hover
+		.domain-buy
+			display block
+	&.selected
+		margin domainBoxMargin
+		border-style solid
+		background domainBoxSelectedBackgroundColor
+		border-color domainBoxSelectedBorderColor
+
+.toggled
+	.domain
+		opacity 1
+		transform scale3d(1,1,1)
+		for n in 1..30
+			&:nth-child({n})
+				transition-delay(unit((n - 1)/50,'s'))

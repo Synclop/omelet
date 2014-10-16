@@ -1,0 +1,72 @@
+.steps
+	@extend $inlineMiddleHack
+	position absolute
+	top 0
+	left 0
+	padding .2em
+	height 1.5em
+
+.formSteps
+	width 4em
+
+.formStepsButtons
+	left 4em
+
+.formNav
+	position absolute
+	bottom 2em
+	left 10%
+	width 80%
+	.formNavElement
+		@extend $button
+		font-size navigationButtonsSizeRatio
+	.formNav-previous
+		float left
+	.formNav-next
+		float right
+
+.formNavButton
+	@extend $circle
+	display inline-block
+	vertical-align middle
+	width 1em
+	height 1em
+	margin .2em
+	background #bbb
+	box-shadow inset 1px 1px 3px rgba(0,0,0,.5)
+	position relative
+	text-decoration none
+	border 1px solid transparent
+	color white
+	transition all 1s
+	&.done, &.previous
+		background #f0f0f0
+	&.current,&:hover
+		background #fdfdfd
+		border-color #bbb
+		transition all .5s
+	.formNavButtonText
+		display block
+		position absolute
+		top (@height+@height)
+		background black
+		padding .3em
+		min-width 3em
+		left -@height
+		display block
+		visibility hidden
+		opacity 0
+		transition all 1s
+		&:before
+			content ''
+			position absolute
+			top -(@height/3)*2
+			left @height
+			triangle(@height,(@height/3)*2,'top',black)
+	.formNavButtonText-inner
+		font-size .8em
+	&:hover
+		.formNavButtonText
+			visibility visible
+			opacity .7
+			transition all .5s

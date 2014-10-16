@@ -1,0 +1,172 @@
+- var colors = public._data.colors
+- var lang = 'en'
+- var t = public._data.texts[lang]
+- var order = public._data.texts_order
+- var f = null
+- var selectFieldSet = function(name){currentFieldName = name;f = t[name];f.id=name;var i = order.indexOf(name);f._prev=order[i-1];f._next=order[i+1];}
+
+mixin formNav(previous,next,current)
+	.formSteps.steps
+		span.step-text step 
+		span.step-current=z
+		span.step-separator /
+		span.steps-total=i
+	.formStepsButtons.steps
+		- var done = true, z =0
+		for n,i in order
+			- if(n==current){done=false;z=i}
+			a.formNavButton(href="#/"+n,class=(n==current?"current":n==next?"next":n==previous?"previous":done?"done":""))
+				span.formNavButtonText
+					span.formNavButtonText-inner=t[n].header
+	.formNav
+		if next && next!='submit'
+			a.formNavElement.formNav-next(href='#'+next,data-target="#"+next)
+				.button-text
+					span.button-text-inside next
+		else
+			button.formNavElement.formNav-next(type="submit",title="ok")
+				.button-text
+					span.button-text-inside Ok
+		if previous
+			a.formNavElement.formNav-previous(href='#'+previous,data-target="#"+previous)
+				.button-text
+					span.button-text-inside previous
+
+
+mixin fieldset(name)
+	- selectFieldSet(name)
+	+fieldsetWithNav(f.header,f.id,f._prev,f._next,attributes.class)
+		block
+
+mixin recapSet(name)
+	- selectFieldSet(name)
+	.recap
+		a.recapTitle(href="#/"+f.id)=f.header
+		block
+
+mixin fieldsetWithNav(label,name,previous,next,classes)
+	fieldset(id=name,class=classes)
+		legend
+			span=label
+		.fieldset-inner
+			block
+		+formNav(previous,next,name)
+
+mixin socialMediaCheckBox(provider)
+	- var id = "socialMedia"+provider
+	.checkbox
+		input(type="checkbox",name=id,value=provider,id=id)
+		label(for=id).checkboxButton.inputButton: .checkboxButtonInside.inputButtonInside
+		label(for=id)
+			span.social-media-icon.icon(class="icon-"+provider)
+			span.social-media-label=provider
+		.subInputField.hidden(data-choice=provider,data-revealOn="socialMedia"+provider)
+			input.provider-address(type="text",name="providers["+provider+"]",id=provider+"Address",data-provider=provider)
+			.help
+				span.help-inside="Enter your page name, the part that comes after "+provider+"'s address: http://www."+provider+".com/[yourpagename]"
+			label.input-icon(for=provider+"Address"): span.icon(class="icon-"+provider)
+
+mixin input(type)
+	.inputField(class="inputField"+type)
+		block
+
+mixin inputText(id,label,help,icon,required)
+	+input("Text")
+		label(for=id): span=label
+		input(type="text",id=id, name=id,required=required)
+		label.help
+			span.help-inside=help
+		if icon
+			label.input-icon: span.icon(class="icon-"+icon)
+
+mixin inputUpload(id,label,help,icon,required)
+	+input("Upload")
+		label(for=id)
+			span=label
+		label(for=id).text=help
+		input.uploadInput(type="file", id=id, name=id+"[]",required=required,multiple=true)
+		label.uploadButton(for=id)
+			.button-icon.icon(class="icon-"+(icon?icon:"upload"))
+			.button-text
+				span.button-text-inside Upload
+		div or
+		label.uploadDropZone(for=id)
+			span.uploadDropZoneInside
+
+mixin inputColor(id,label,help,icon,required)
+	+input("Color")
+		label(for=id): span=label
+		input.color(type="text", id=id, name=id.replace(/(\d)/g,"[$1]"),required=required)
+		label(for=id).help
+			span.help-inside=help
+		label(for=id).input-icon
+			.icon(class="icon-"+(icon?icon:"brush"))
+			.color-box
+
+mixin inputColorHidden(id)
+	.inputColorHidden(style="display:none")
+		input.color(type="text",id=id, name=id.replace(/(\d)/g,"[$1]"))
+
+mixin inputTextArea(id,label,help,icon,required)
+	+input("TextArea")
+		label(for=id): span=label
+		textarea(name=id,id=id,cols="40",rows="5",required=required)
+		label(for=id).help
+			span.help-inside=help
+		label(for=id).input-icon: span.icon(class="icon-"+(icon?icon:"pencil"))
+
+mixin radio(name,label,value,required)
+	- var id = name+value
+	- value = value || label.replace(/[\s,"'\{\}\[\]#$@%\^\*\.\(\)!~%]/g,'').toLowerCase();
+	.radio
+		input(type="radio",name=name, value=value, id=id,required=required)
+		label(for=id).radioButton.inputButton: .radioButtonInside.inputButtonInside
+		label(for=id): span=label
+
+mixin radioGroup(name,help,radios,required)
+	.inputField.inputFieldRadios(class=attributes.class)
+		.help
+			span.help-inside=help
+		each radio in radios
+			if radio.length && radio.length==2
+				+radio(name,radio[0],radio[1],required)
+			else
+				+radio(name,radio,'',required)
+
+mixin radioGroupRevealer(name,help,handpicked,api,none,required)
+	.fieldset
+		+radioGroup(name,help,[[handpicked,"handpicked"],[api,"api"],[none,"none"]],required).revealers
+
+mixin inputDynamic(id,label,help,icon,required,defaultValue,loadText)
+	.inputField.inputFieldDynamic(class=attributes.class)
+		label(for=id): span=label
+		input.dynamic(type="search",id=id,name=id,value=defaultValue,required=required)
+		label(for=id).help
+			span.help-inside=help
+		label(for=id).input-icon: span.icon(class="icon-"+(icon?icon:"search"))
+	.resultField.inputFieldRadios(data-for=id)
+		.resultFieldLoading
+				span=(loadText?loadText:"loading...")
+		.resultFieldResults
+
+mixin revealOn(id,choice)
+	.fieldset.hidden(data-choice=choice,data-revealOn=id)
+		block
+
+mixin revealOnHandPicked(id)
+	+revealOn(id,"handpicked")
+		block
+
+mixin revealOnAPI(id)
+	+revealOn(id,"api")
+		block
+
+mixin revealOnNone(id,text)
+	+revealOn(id,"none")
+		span.text=text
+		block
+
+mixin recap(id,name,type)
+	.recapField(class="recapField-"+type,data-for=id)
+		label.recapTitle(for=id)=name
+		label.recapBody(for=id)

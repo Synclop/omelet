@@ -1,0 +1,32 @@
+.hidden
+	display none
+	&.active
+		display block
+.social-media-icon,.social-media-label
+	display inline-block
+.resultFieldLoading
+	visibility hidden
+.resultField
+	min-height 25em
+	background-color #ddd
+	position relative
+	.resultFieldLoading,.resultFieldResults
+		width 100%
+		height 100%
+		position absolute
+		top 0
+		left 0
+	.resultFieldLoading
+		@extends $inlineMiddleHack
+		span
+			background yellow
+			display inline-block
+			vertical-align middle
+	.resultFieldResults
+		overflow auto
+	&.loading
+		.resultFieldLoading
+			visibility visible
+	&.loaded
+		.resultFieldLoading
+			visibility hidden
