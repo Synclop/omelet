@@ -24,7 +24,7 @@
   "scripts": {
     "postinstall": "mkdir -p public/build",
     "test": "harp server public & watchify js/index.js -o public/main.js -dv",
-    "start": "browserify js/index.js -o public/main.js && harp compile public -o public/build",
+    "start": "browserify js/index.js -o public/main.js && harp compile ./public ./www && cd www && git checkout gh-pages && git add . && git commit -m 'update' && git push && cd .. && git checkout master && rm -rf ./www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "xananax@synclop.com",
