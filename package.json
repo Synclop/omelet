@@ -6,7 +6,8 @@
   "dependencies": {
     "browserify": "^6.0.3",
     "harp": "^0.14.0",
-    "watchify": "^2.0.0"
+    "watchify": "^2.0.0",
+    "jquery":""
   },
   "devDependencies": {
     "browserify-shim": "^3.8.0",
@@ -24,8 +25,7 @@
   "scripts": {
     "postinstall": "mkdir -p public/build",
     "test": "harp server public & watchify js/index.js -o public/main.js -dv",
-    "start": "browserify js/index.js -o public/main.js && harp compile ./public ./www && git add www && git commit -m 'update' && git push && git subtree push --prefix www origin gh-pages",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "browserify js/index.js -o public/main.js && harp compile ./public ./www && git add www && git commit -m 'update' && git push && git subtree push --prefix www origin gh-pages"
   },
   "author": "xananax@synclop.com",
   "license": "MIT"

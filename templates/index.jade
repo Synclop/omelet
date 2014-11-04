@@ -3,21 +3,21 @@ extends wrapper
 block BODY
 	+fieldset("ContactInformation")
 		.fieldset
-			+inputText("name",f.name,f.name_help,f.name_icon,true)
-			+inputText("company",f.company,f.company_help,f.company_icon,true)
+			+inputText("name",f.name,f.name_help,f.name_icon,true).a.a-1
+			+inputText("company",f.company,f.company_help,f.company_icon,true).a.a-2
 		.fieldset
-			+inputText("email",f.email,f.email_help,f.email_icon,true)
+			+inputText("email",f.email,f.email_help,f.email_icon,true).a.a-3
 
 	+fieldset("SocialMedia")
 		.fieldset
 			.icons
 				.inputField.inputFieldCheckBoxes.revealers
-					for p in f.providers
-						+socialMediaCheckBox(p)
+					for p,i in f.providers
+						+socialMediaCheckBox(p,"a a-"+(i+1))
 
 	+fieldset("Logo")
 		.fieldset
-			+inputUpload("logo",f.logo,f.logo_help,f.logo_icon)
+			+inputUpload("logo",f.logo,f.logo_help,f.logo_icon).a.a-1
 
 	+fieldset("Branding")
 		+radioGroupRevealer("colorChoice",f.choice,f.choices.handpicked,f.choices.api,f.choices.none,true)
@@ -42,27 +42,27 @@ block BODY
 
 	+fieldset("Notes")
 		.fieldset
-			+inputTextArea("notes",f.notes,f.notes_help)
+			+inputTextArea("notes",f.notes,f.notes_help).a.a-1
 
 	+fieldset("Recap")
 		.fieldset
 			.help=f.text
-			+recapSet("ContactInformation")
+			+recapSet("ContactInformation").a.a-1
 				+recap("name",f.name,"text")
 				+recap("company",f.company,"text")
 				+recap("email",f.email,"text")
-			+recapSet("SocialMedia")
+			+recapSet("SocialMedia").a.a-2
 				for p in f.providers
 					+recap("socialMedia"+p,p,"text")
-			+recapSet("Logo")
+			+recapSet("Logo").a.a-3
 				+recap("logo",f.logo,"text")
-			+recapSet("Branding")
+			+recapSet("Branding").a.a-4
 				+recap("color0",f.handpicked.color1,"color")
 				+recap("color1",f.handpicked.color2,"color")
 				+recap("color2",f.handpicked.color3,"color")
-			+recapSet("DomainName")
+			+recapSet("DomainName").a.a-5
 				+recap("domain",f.handpicked.label,"text")
-			+recapSet("Notes")
+			+recapSet("Notes").a.a-6
 				+recap("notes",f.notes,"textArea")
 
 

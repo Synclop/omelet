@@ -1,5 +1,4 @@
 var jQuery = require('jquery')
-,	page = require('page')
 ,	filedrop = require('./jquery.filedrop')
 ;
 
@@ -64,22 +63,13 @@ jQuery(function($){
 			$page.addClass('active').find('input:first,textarea:first').focus();
 		}
 
-		var makeUrlHandler = function(id){
-			var $page = $('#'+id);
-			return function(){showPageByElement($page);}
+		var $fieldsets = $('.omelet fieldset');
+
+		var hash = window.location.hash;
+
+		if(!hash){
+			window.location.hash = $fieldsets[0].id;
 		}
-
-		var $fieldsets = $('.omelet fieldset').each(function(i){
-			var id = this.id
-			,	handler = makeUrlHandler(id)
-			;
-			if(i==0){page('/',handler);page('/#',handler);}
-			page('/#'+id,handler);
-		});
-
-		page('*',function(ctx){console.log(ctx,'a')})
-		page();
-
 
 	})();
 
@@ -339,6 +329,18 @@ jQuery(function($){
 		$('input.color').click(function(evt){
 			$colors.data('link',this.id).addClass('toggled');
 		});
+	})();
+
+	(function(){
+
+		$('.inputField textarea, .inputField input').on('change keyup',function(evt){
+			var f = evt.target;
+			var recapFieldId = 'Recap-'+f.id;
+			var value = f.value;
+			var recapField = document.getElementById(recapFieldId);
+			recapField.innerHTML = value;
+		})
+
 	})();
 
 });

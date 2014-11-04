@@ -14,9 +14,9 @@ legend
 	span
 		display inline-block
 		vertical-align middle
+		position relative
 		font-size 2em
 fieldset
-	@extends $inlineMiddleHack
 	display block
 	box-sizing border-box
 	padding-top omeletLegendHeight
@@ -25,27 +25,31 @@ fieldset
 	left 0
 	overflow hidden
 	//transition all 1s
-	transition-delay 1s
-	.fieldset
-		top 8000px
-		transition all 1s
-		top 1000px
+	transition-delay 3s
+	.a
+		animation-name Exit
+		animation-timing-function ease-out
+		animation-duration 2s
+		animation-fill-mode forwards
+		transform translateY(-2000px)
+	for i in (1..5)
+		.a-{i}
+			animation-delay unit(i/3,'s')
 	.formNav
 		bottom -1000px
-	&.active
+	&.active,&:target
 		top 0
-		transition-delay 0
-		.fieldset
-			top 0
-			transition-delay 0
+		transition-delay 0s
+		.a
+			animation-name Enter
 		.formNav
 			bottom 2em
 .fieldset
 	width 80%
 	margin 0 auto
 	min-height 3em
-	transition all 1s
 	position relative
+	top 0
 	&:last-child
 		min-height 0
 .fieldset-inner

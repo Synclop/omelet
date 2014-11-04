@@ -15,12 +15,12 @@ mixin formNav(previous,next,current)
 		- var done = true, z =0
 		for n,i in order
 			- if(n==current){done=false;z=i}
-			a.formNavButton(href="#/"+n,class=(n==current?"current":n==next?"next":n==previous?"previous":done?"done":""))
+			a.formNavButton.link(href="#"+n,class=(n==current?"current":n==next?"next":n==previous?"previous":done?"done":""))
 				span.formNavButtonText
 					span.formNavButtonText-inner=t[n].header
 	.formNav
 		if next && next!='submit'
-			a.formNavElement.formNav-next(href='#'+next,data-target="#"+next)
+			a.formNavElement.formNav-next.link(href='#'+next,data-target="#"+next)
 				.button-text
 					span.button-text-inside next
 		else
@@ -28,7 +28,7 @@ mixin formNav(previous,next,current)
 				.button-text
 					span.button-text-inside Ok
 		if previous
-			a.formNavElement.formNav-previous(href='#'+previous,data-target="#"+previous)
+			a.formNavElement.formNav-previous.link(href='#'+previous,data-target="#"+previous)
 				.button-text
 					span.button-text-inside previous
 
@@ -40,21 +40,21 @@ mixin fieldset(name)
 
 mixin recapSet(name)
 	- selectFieldSet(name)
-	.recap
-		a.recapTitle(href="#/"+f.id)=f.header
+	.recap(class=attributes.class)
+		a.recapTitle.link(href="#"+f.id)=f.header
 		block
 
 mixin fieldsetWithNav(label,name,previous,next,classes)
 	fieldset(id=name,class=classes)
-		legend
+		legend.a.a-0
 			span=label
 		.fieldset-inner
 			block
 		+formNav(previous,next,name)
 
-mixin socialMediaCheckBox(provider)
+mixin socialMediaCheckBox(provider,classes)
 	- var id = "socialMedia"+provider
-	.checkbox
+	.checkbox(class=classes)
 		input(type="checkbox",name=id,value=provider,id=id)
 		label(for=id).checkboxButton.inputButton: .checkboxButtonInside.inputButtonInside
 		label(for=id)
@@ -66,12 +66,12 @@ mixin socialMediaCheckBox(provider)
 				span.help-inside="Enter your page name, the part that comes after "+provider+"'s address: http://www."+provider+".com/[yourpagename]"
 			label.input-icon(for=provider+"Address"): span.icon(class="icon-"+provider)
 
-mixin input(type)
-	.inputField(class="inputField"+type)
+mixin input(type,classes)
+	.inputField(class="inputField"+type+(classes?' '+classes.join(" "):''))
 		block
 
 mixin inputText(id,label,help,icon,required)
-	+input("Text")
+	+input("Text",attributes.class)
 		label(for=id): span=label
 		input(type="text",id=id, name=id,required=required)
 		label.help
@@ -80,7 +80,7 @@ mixin inputText(id,label,help,icon,required)
 			label.input-icon: span.icon(class="icon-"+icon)
 
 mixin inputUpload(id,label,help,icon,required)
-	+input("Upload")
+	+input("Upload",attributes.class)
 		label(for=id)
 			span=label
 		label(for=id).text=help
@@ -108,17 +108,17 @@ mixin inputColorHidden(id)
 		input.color(type="text",id=id, name=id.replace(/(\d)/g,"[$1]"))
 
 mixin inputTextArea(id,label,help,icon,required)
-	+input("TextArea")
+	+input("TextArea",attributes.class)
 		label(for=id): span=label
 		textarea(name=id,id=id,cols="40",rows="5",required=required)
 		label(for=id).help
 			span.help-inside=help
 		label(for=id).input-icon: span.icon(class="icon-"+(icon?icon:"pencil"))
 
-mixin radio(name,label,value,required)
+mixin radio(name,label,value,required,classes)
 	- var id = name+value
 	- value = value || label.replace(/[\s,"'\{\}\[\]#$@%\^\*\.\(\)!~%]/g,'').toLowerCase();
-	.radio
+	.radio(class=classes)
 		input(type="radio",name=name, value=value, id=id,required=required)
 		label(for=id).radioButton.inputButton: .radioButtonInside.inputButtonInside
 		label(for=id): span=label
@@ -127,11 +127,11 @@ mixin radioGroup(name,help,radios,required)
 	.inputField.inputFieldRadios(class=attributes.class)
 		.help
 			span.help-inside=help
-		each radio in radios
+		each radio,i in radios
 			if radio.length && radio.length==2
-				+radio(name,radio[0],radio[1],required)
+				+radio(name,radio[0],radio[1],required,"a a-"+(i+1))
 			else
-				+radio(name,radio,'',required)
+				+radio(name,radio,'',required,"a a-"+(i+1))
 
 mixin radioGroupRevealer(name,help,handpicked,api,none,required)
 	.fieldset
@@ -168,5 +168,5 @@ mixin revealOnNone(id,text)
 
 mixin recap(id,name,type)
 	.recapField(class="recapField-"+type,data-for=id)
-		label.recapTitle(for=id)=name
-		label.recapBody(for=id)
+		label.recapFieldTitle(for=id)=name
+		label.recapBody(for=id,id="Recap-"+id)
